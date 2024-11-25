@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database to Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Farmers</h1>
+        <table id="farmersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h1>Buyers</h1>
+        <table id="buyersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Contact No</th>
+                    <th>Address</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h1>Crops</h1>
+        <table id="cropsTable">
+            <thead>
+                <tr>
+                    <th>Crop ID</th>
+                    <th>Farmer ID</th>
+                    <th>Crop Name</th>
+                    <th>Description</th>
+                    <th>Quantity Available</th>
+                    <th>Price</th>
+                    <th>Address</th>
+                    <th>Farmer Name</th>
+                    <th>Contact Info</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h1>Orders</h1>
+        <table id="ordersTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Crop ID</th>
+                    <th>Total Price</th>
+                    <th>Vendor ID</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h1>Transactions</h1>
+        <table id="transactionsTable">
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Payment Method</th>
+                    <th>Transaction Date</th>
+                    <th>Order ID</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchData(endpoint) {
+            const response = await fetch(`http://localhost:3005/${endpoint}`);
+            return await response.json();
+        }
+
+        function generateTableRows(data) {
+            return data.map(row => {
+                const cells = Object.values(row).map(value => `<td>${value}</td>`).join('');
+                return `<tr>${cells}</tr>`;
+            }).join('');
+        }
+
+        async function populateTables() {
+            // Fetch data from API
+            const farmers = await fetchData('farmers1');
+            const buyers = await fetchData('buyers1');
+            const crops = await fetchData('crops1');
+            const orders = await fetchData('orders2');
+            const transactions = await fetchData('transactions1');
+
+            // Generate table rows
+            document.querySelector('#farmersTable tbody').innerHTML = generateTableRows(farmers);
+            document.querySelector('#buyersTable tbody').innerHTML = generateTableRows(buyers);
+            document.querySelector('#cropsTable tbody').innerHTML = generateTableRows(crops);
+            document.querySelector('#ordersTable tbody').innerHTML = generateTableRows(orders);
+            document.querySelector('#transactionsTable tbody').innerHTML = generateTableRows(transactions);
+        }
+
+        // Populate tables on page load
+        window.onload = populateTables;
+    </script>
+</body>
+</html>

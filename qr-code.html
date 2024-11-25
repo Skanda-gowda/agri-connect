@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Payment</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #16695b, #00f2fe);
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .amount-display {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    #qrcode {
+      margin-top: 30px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .instructions {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #f1f1f1;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Payment QR Code</h1>
+  <div class="amount-display" id="amountDisplay"></div>
+  <div id="qrcode"></div>
+  <div class="instructions">Scan the QR code above with your UPI app to complete the payment.</div>
+  
+  <button id="doneButton" class="hidden" onclick="redirectToNextPage()">Done</button>
+
+  <script>
+    // Extract amount from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const amount = urlParams.get('amount');
+
+    // Validate the amount
+    if (!amount || isNaN(amount)) {
+      alert("Invalid or missing amount. Please provide a valid amount.");
+      window.location.href = "error.html"; // Replace with your error page
+    }
+
+    // Update the displayed amount
+    const amountDisplay = document.getElementById('amountDisplay');
+    amountDisplay.innerText = `Amount to Pay: ₹${amount}`;
+
+    // UPI details
+    const upiId = "6366091105@axl"; // Replace with your actual UPI ID
+    const payeeName = "Skanda H S"; // Replace with the payee's name
+
+    // Generate the QR code
+    const qrText = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
+    new QRCode(document.getElementById('qrcode'), {
+      text: qrText,
+      width: 200,
+      height: 200
+    });
+
+    // Timer for 15 seconds
+    const doneButton = document.getElementById('doneButton');
+    setTimeout(() => {
+      doneButton.classList.remove('hidden');
+    }, 15000);
+
+    // Redirect to the next page
+    function redirectToNextPage() {
+      window.location.href = "pay.html"; // Replace with the correct URL of your next page
+    }
+  </script>
+</body>
+</html>

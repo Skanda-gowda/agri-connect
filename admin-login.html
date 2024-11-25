@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .background {
+      background-image: url('sunny.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      padding: 35px;
+      width: 300px;
+      background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    }
+
+    .content {
+      text-align: center;
+    }
+
+    h1 {
+      color: #333333; /* Green */
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #333333dc; /* Blue */
+      color: white;
+      border: none;
+      border-radius: 200px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: black; 
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #555; /* Dark gray */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button[type="submit"] {
+      margin-top: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="container">
+      <div class="content">
+        <h1>Admin Login</h1>
+        <form id="loginForm">
+          <label for="loginName"><b>Name:</b></label>
+          <input type="text" id="username" name="loginName" required>
+          <label for="loginPassword"><b>Password:</b></label>
+          <input type="password" id="password" name="loginPassword" required>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('http://localhost:3005/admin/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.status === 200) {
+        
+          window.location.href = 'next.html';
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error('Error logging in admin:', error);
+        alert('An error occurred. Please try again later.');
+      }
+    });
+  </script>
+</body>
+</html>

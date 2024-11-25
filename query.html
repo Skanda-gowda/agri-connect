@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><h1>Execute MySQL Query</h1></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: rgb(255, 255, 255);
+        }
+        h1 {
+            color: #0e0a0a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child{
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+           
+        }
+    </style>
+</head>
+<body>
+    <div  align="center" class="container">
+        <h1>Execute MySQL Query</h1>
+        <textarea id="queryInput" rows="4" cols="50" placeholder="Enter your SQL query here..."></textarea><br><br>
+        <button onclick="executeQuery()">Execute Query</button>
+
+        <div id="results">
+            <h2>Results</h2>
+            <table id="resultsTable">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function executeQuery() {
+            const query = document.getElementById('queryInput').value;
+            if (!query) {
+                alert('Please enter a query');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3005/execute-query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query })
+                });
+                const results = await response.json();
+                displayResults(results);
+            } catch (error) {
+                console.error('Error executing query:', error);
+                alert('An error occurred while executing the query');
+            }
+        }
+
+        function displayResults(results) {
+            const tableHead = document.querySelector('#resultsTable thead');
+            const tableBody = document.querySelector('#resultsTable tbody');
+
+            // Clear existing table data
+            tableHead.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            if (results.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="100%">No results found</td></tr>';
+                return;
+            }
+
+            // Generate table headers
+            const headers = Object.keys(results[0]);
+            const headerRow = headers.map(header => `<th>${header}</th>`).join('');
+            tableHead.innerHTML = `<tr>${headerRow}</tr>`;
+
+            // Generate table rows
+            const rows = results.map(row => {
+                const rowData = headers.map(header => `<td>${row[header]}</td>`).join('');
+                return `<tr>${rowData}</tr>`;
+            }).join('');
+            tableBody.innerHTML = rows;
+        }
+    </script>
+</body>
+</html>

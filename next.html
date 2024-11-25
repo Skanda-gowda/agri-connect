@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #4CAF50;
+            color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 4px 2px -2px gray;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo svg {
+            margin-right: 0.5rem;
+        }
+
+        .background {
+            background: url('sunny.jpg') no-repeat center center/cover;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            padding: 190px;
+        }
+
+        .content {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1.5rem;
+        }
+
+        .login-options a {
+            text-decoration: none;
+        }
+        .admin {
+            position: absolute;
+            top: 10px; /* Adjust as needed */
+            right: 10px; /* Adjust as needed */
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            color: #fff;
+            background: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #45a049;
+        }
+
+        .contact {
+            background: #f9f9f9;
+            padding: 2rem 0;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        footer {
+            background: #4CAF50;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .social-icons {
+            margin-top: 0.5rem;
+        }
+
+        .social-icons a {
+            margin: 0 0.5rem;
+            display: inline-block;
+        }
+
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="admin">
+            <a href="front.html">
+            <button type="button">Logout</button></a>
+        </div>
+        <div class="content">
+            <div class="login-options">
+                <a href="admin.html">
+                    <button type="button" class="btn">Complete Data</button>
+                </a>
+                <a href="query.html">
+                    <button type="button" class="btn">Specific Data</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

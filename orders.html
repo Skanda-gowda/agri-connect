@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Orders</title>
+    <style>
+        body,
+    h1,
+    h2,
+    h3,
+    p,
+    ul,
+    li,
+    a {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    .navbar {
+        background-color: #5c9e78;
+        color: white;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .logo svg {
+        margin-right: 10px;
+    }
+    
+    .navbar-links {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-links a {
+        color: white;
+        text-decoration: none;
+        padding: 0 15px;
+        font-size: 1rem;
+        transition: color 0.3s;
+    }
+    
+    .navbar-links a:hover {
+        color: #444239;
+        text-decoration: underline;
+    }
+    
+    .container {
+        padding: 40px;
+        background-color: #ffffff;
+        margin: 40px auto;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 900px;
+        border-radius: 10px;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #333333;
+        font-size: 2rem;
+    
+    }
+    
+    .orders-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    .orders-table th,
+    .orders-table td {
+        padding: 15px;
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 1rem;
+    }
+    
+    .orders-table th {
+        background-color: #5c9e78;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .orders-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    
+    .orders-table tr:hover {
+        background-color: #e9ecef;
+        transition: background-color 0.3s;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+        background-color: #77a363;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+        background-color: #6fad7a;
+    }
+    
+    footer {
+        background-color: #333333;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin-top: auto;
+    }
+    
+    footer p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+    </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar">
+                <div class="logo">
+                    <svg fill="none" height="30" viewBox="5 0 48 48" width="30" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-rule="evenodd" fill="#fff" fill-rule="evenodd">
+                            <path d="m48 0h-48v48h48zm-8.7617 8s-10.9542 2.9382-13.0026 5.2804c-1.5281 1.7473.0115 5.3227.8921 7.0261-.9654 1.5202-1.8057 3.2454-2.2511 5.089-.1329.5502.2413 1.1692.8358 1.3825s1.1843-.06 1.3172-.6103c.3856-1.5959 1.1233-3.1257 1.9958-4.5073 1.9875.535 5.553 1.2553 6.7121-.0701 1.6387-1.8738 3.5007-13.5903 3.5007-13.5903zm-30.2383 20h4.8889v1.4414c1.2165-.4273 2.9736-1.0535 3.4837-1.2816.8039-.3596 2.7691 0 2.7691 0l5.7169 1.2585s1.4292.4494 2.7691.4494.5389 1.799-.3573 2.4271-1.5482.5941-1.5482.5941l-4.6153-.0548s4.0197.7191 5.5382.809c.7693.0455 2.0887-.4856 3.5634-1.0793 1.4365-.5782 3.0203-1.2159 4.3867-1.4376 2.7691-.4495 3.2157 1.9776 2.3225 2.8765-.8933.8989-8.0394 4.3147-9.29 4.7642-.9793.3519-2.164.2351-3.5007.1033h-.0001c-.3701-.0365-.7519-.0742-1.1441-.1033-1.561-.1161-2.754-.4882-3.9348-.8565-1.2657-.3948-2.5176-.7852-4.1939-.8515-.3505-.0138-1.1742.0075-1.9652.0347v1.9064h-4.8889zm13.3407-11.5525c-1.5202-1.7567-9.6503-3.9603-9.6503-3.9603s1.382 8.7874 2.5982 10.1927c.8597.9934 3.5028.4546 4.9785.0534.6583 1.1161 1.2205 2.3015 1.5876 3.5115.161.5305.7173.8282 1.2427.6648.5253-.1634.8207-.7259.6597-1.2564-.4505-1.4849-1.1458-2.9096-1.9391-4.2157.6592-1.3568 1.5796-3.7687.5227-4.99z" />
+                            <path d="m28.6863 19.7677c-.3399-.2367-.4235-.7042-.1868-1.0441 1.7878-2.5668 3.2056-4.2247 4.1869-5.2484.4908-.512.8726-.8655 1.1371-1.0949.1323-.1147.2353-.1983.3079-.2552.0363-.0285.0651-.0502.0861-.0658l.0257-.0189.0085-.0061.0031-.0022.0013-.0009.0006-.0004c.0003-.0002.0006-.0004.4316.6133l-.431-.6137c.3389-.2381.8067-.1563 1.0448.1826.2375.3382.1567.8045-.1802 1.0431-.0007.0005-.0013.0009-.002.0014l.0005-.0003.0007-.0005.0009-.0007c.0002-.0001.0002-.0001.0002-.0001s-.0001.0001-.0003.0002c-.0001.0001-.0002.0001-.0003.0002l-.0099.0073c-.0105.0078-.029.0217-.0553.0423-.0526.0412-.1363.109-.2503.2078-.2278.1975-.5763.519-1.0368.9995-.9212.9609-2.2902 2.5571-4.0389 5.0678-.2368.3398-.7042.4235-1.0441.1867z" />
+                            <path d="m20.3242 21.2731c.3383-.2382.4217-.7082.1864-1.0496-.975-1.4146-1.7522-2.3341-2.2962-2.9075-.272-.2868-.4859-.4872-.6371-.6197-.0757-.0663-.1357-.1156-.1794-.1502-.0219-.0174-.0398-.031-.0535-.0413l-.0175-.013-.0064-.0046-.0026-.0019-.0012-.0008-.0005-.0004c-.0003-.0002-.0006-.0004-.4279.6136l.4273-.614c-.3369-.2392-.8024-.1568-1.0396.184-.2361.3392-.157.8068.1762 1.0469" />
+                        </g>
+                    </svg>
+                    <h1>AGRI-CONNECT</h1>
+                </div>
+                <div class="navbar-links">
+                    <a href="#">Home</a>
+                    <a href="vendor.html">Back</a>
+                    <a href="#">Profile</a>
+                    <a href="buy.html">Logout</a>
+                </div>
+            </div>
+        </header>
+    
+        <main>
+            <div class="container">
+                <h1>MY ORDERS</h1>
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Crop</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example row -->
+                        <tr>
+                            <td>12345</td>
+                            <td>Apples</td>
+                            <td>100 kg</td>
+                            <td>$200</td>
+                          
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+    
+        <footer>
+            <p>&copy; 2023 AGRI-CONNECT. All rights reserved.</p>
+        </footer>
+        </main>
+
+    <script>
+    async function fetchOrders() {
+    try {
+        const buyerid = localStorage.getItem('buyerid');
+        if (!buyerid) {
+            alert('You must be logged in to view orders.');
+            return;
+        }
+
+        const response = await fetch('http://localhost:3005/orders1', {
+            headers: { 'buyerid': buyerid }
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to fetch orders: ${response.status} ${response.statusText} - ${errorText}`);
+        }
+
+        const contentType = response.headers.get('content-type');
+        let data;
+        if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            const text = await response.text();
+            throw new Error(`Unexpected response format: ${text}`);
+        }
+
+        // Populate orders data in the table
+        const ordersTableBody = document.querySelector('.orders-table tbody');
+        ordersTableBody.innerHTML = ''; // Clear existing rows
+
+        data.forEach(order => {
+            const row = document.createElement('tr');
+
+            const orderIdCell = document.createElement('td');
+            orderIdCell.textContent = order.orderid;
+
+            const cropNameCell = document.createElement('td');
+            cropNameCell.textContent = order.cropname;
+
+            const quantityAvailableCell = document.createElement('td');
+            quantityAvailableCell.textContent = order.quantityavailable;
+
+            const totalPriceCell = document.createElement('td');
+            totalPriceCell.textContent = order.totalprice;
+
+            
+
+            row.appendChild(orderIdCell);
+            row.appendChild(cropNameCell);
+            row.appendChild(quantityAvailableCell);
+            row.appendChild(totalPriceCell);
+        
+
+            ordersTableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        alert(`An error occurred while fetching orders: ${error.message}`);
+    }
+}
+
+window.onload = fetchOrders;
+
+
+   </script>
+    </body>
+      </html>
